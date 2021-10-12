@@ -23,5 +23,7 @@
 2. 读取插件中的ContentProvider信息，借助PackageParser的parsePackage方法，然后提供generateProviderInfo方法，把得到的Package对象转换为我们需要的ProviderInfo类型对象。
 3. 把这些插件ContentProvider的packageName设置为当前apk的packageName
 4. 通过反射执行ActivityThread的installContentProviders方法，把ContentProvider作为插件的参数，相当于把这些插件ContentProvider“安装”到了宿主App中
+
 优化：
+
 声明一个占坑StubContentProvider，第三方应用通过访问StubContentProvider，然后由StubContentProvider转发给插件ContentProvider。
