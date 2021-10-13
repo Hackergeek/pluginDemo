@@ -27,3 +27,21 @@
 优化：
 
 声明一个占坑StubContentProvider，第三方应用通过访问StubContentProvider，然后由StubContentProvider转发给插件ContentProvider。
+
+### [基于静态代理的插件化方案——任玉刚的dynamic-load-apk](https://github.com/singwhatiwanna/dynamic-load-apk)
+#### [基于静态代理的Activity插件化方案](./That1.5)
+实现步骤：
+1. 在宿主的AndroidManifest文件中声明ProxyActivity
+2. 启动插件Activity实际上启动的是ProxyActivity，读取Intent中携带的参数：插件APK路径和要启动的插件Activity类名
+3. 在ProxyActivity的onCreate方法中创建插件APK对应的ClassLoader，并通过addAssetPath加载插件的资源
+4. 通过插件ClassLoader加载并创建插件Activity实例，调用插件Activity实例的setProxy方法将ProxyActivity实例传递给插件Activity实例
+5. 反射调用插件Activity的onCreate方法，当触发ProxyActivity其他生命周期回调时，同样需要通过反射调用插件Activity与之对应的方法。
+
+* [That1.0——基于静态代理的Activity插件化方案](./That1.0)
+* [That1.1——单个插件内Activity之间的跳转示例](./That1.1)
+* [That1.2——将that关键字封装到BasePluginActivity内部示例](./That1.2)
+* [That1.3——不同插件内Activity之间的跳转示例](./That1.3)
+* [That1.4——面向接口编程，将Activity相关的方法抽象成一个接口，插件Activity实现该接口，宿主Activity可直接调用插件相关方法，避免反射调用的开销](./That1.4)
+* [That1.5——通过模拟返回栈，让插件Activity支持LaunchMode](./That1.5)
+
+#### [基于静态代理的Service和BroadcastReceiver插件化方案]
